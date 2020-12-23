@@ -19,6 +19,7 @@ public class Gun : MonoBehaviour
     public bool isAuto = true;
 
     public Camera playerCamera = null;
+    public Transform playerCameraLoc = null;
 
     public Transform muzzle;
 
@@ -32,12 +33,16 @@ public class Gun : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip reloadSound;
     public AudioClip fireSound;
+
+
     //private variables
     private float nextTimeToFire = 0f;
 
     private int currentAmmo;
 
     private bool isReloading = false;
+
+
     private void Start()
     {
         currentAmmo = maxAmmo;  
@@ -52,6 +57,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isReloading) { return; }
 
         ammoCounter.text = currentAmmo.ToString();
@@ -77,6 +83,8 @@ public class Gun : MonoBehaviour
 
     private void Fire()
     {
+
+
         Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
 
         audioSource.clip = fireSound;
