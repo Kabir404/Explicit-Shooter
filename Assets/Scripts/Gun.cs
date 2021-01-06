@@ -96,11 +96,18 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
-            Health health = hit.transform.GetComponent<Health>();
-            if (health != null)
+            if (hit.collider.GetComponent<Collider>().GetType() == typeof(SphereCollider)) { return; }
+            if (hit.collider.GetComponent<Collider>().GetType() != typeof(SphereCollider))
             {
-                health.TakeDamage(damage);
+                Debug.Log(hit.transform.name);
+                Health health = hit.transform.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                }
+            } else
+            {
+                return;
             }
         }
 
