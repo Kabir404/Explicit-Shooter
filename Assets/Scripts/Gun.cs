@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 //reqired conponents
 
 
 public class Gun : MonoBehaviour
 {
-
+    [Header("Gun Properties")]
     public float damage = 15f;
     public float range = 150f;
     public float fireRate = 15f;
     public float impactForce = 50f;
-
-    public int maxAmmo = 30;
-    public float reloadTime = 1f;
-    
     public bool isAuto = true;
 
+    [Header("Gun Ammo Info And Reloading")]
+    public int loadedAmmo = 30;
+    public int hasAmmoInInventory = 90;
+    public int currentAmmo;
+    public float reloadTime = 1f;
+    
+
+    [Header("Needed Items")]
     public Camera playerCamera = null;
     public Transform playerCameraLoc = null;
 
@@ -26,7 +31,8 @@ public class Gun : MonoBehaviour
     public GameObject muzzleFlash;
     public GameObject impactEffect;
 
-    public Text ammoCounter;
+    public TMP_Text ammoCounter;
+    public TMP_Text magazineCounter;
 
     public Animator gunAnimator;
 
@@ -36,20 +42,22 @@ public class Gun : MonoBehaviour
 
 
     //private variables
-    private float nextTimeToFire = 0f;
+    public float nextTimeToFire = 0f;
 
-    private int currentAmmo;
 
-    private bool isReloading = false;
+
+    public bool isReloading = false;
 
 
     private void Start()
     {
-        currentAmmo = maxAmmo;  
+        //sets the ammo
+        currentAmmo = loadedAmmo;
     }
 
     private void OnEnable()
     {
+        //disables the reloading when switched
         isReloading = false;
         gunAnimator.SetBool("Reloading", false);
     }
@@ -57,22 +65,29 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //dont do anything when reloading
         if (isReloading) { return; }
 
+        //update the ui
         ammoCounter.text = currentAmmo.ToString();
+        magazineCounter.text = hasAmmoInInventory.ToString();
 
-        if (currentAmmo <= 0)
+        //checks for the "R" key or the ammo is empty or not
+        if (currentAmmo <= 0) { StartCoroutine(Reload()); return; }
+        if (Input.GetKeyDown(KeyCode.R)) 
         {
-            StartCoroutine(Reload());
+            StartCoroutine(Reload()); 
             return;
         }
 
+        //fires if user presses the mouse button no 0
+        //Firing for Auto
         if (Input.GetMouseButton(0) && isAuto && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Fire();
         }
+        //Firing for Non Auto
         if (Input.GetMouseButtonDown(0) && !isAuto && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
@@ -81,10 +96,9 @@ public class Gun : MonoBehaviour
         }
     }
 
+    //The firing logic
     private void Fire()
     {
-
-
         Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
 
         audioSource.clip = fireSound;
@@ -118,23 +132,42 @@ public class Gun : MonoBehaviour
 
         Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
     }
-
+    //Reloading Logic
     IEnumerator Reload()
     {
-        isReloading = true;
-        gunAnimator.SetBool("Reloading", true);
+        Debug.Log("attempting to reload");
+        if (hasAmmoInInventory != 0)
+        {
+            //notifies that the gun is reloading and play the reload animation
+            isReloading = true;
+            gunAnimator.SetBool("Reloading", true);
 
-        Debug.Log("Reloading..");
+            Debug.Log("Reloading..");
+            //play the reloading sound
+            audioSource.clip = reloadSound;
+            audioSource.Play();
+            //wait for it to reload
+            yield return new WaitForSeconds(reloadTime);
 
-        yield return new WaitForSeconds(reloadTime);
 
-        audioSource.clip = reloadSound;
-        audioSource.Play();
+            currentAmmo += hasAmmoInInventory;
+            if (currentAmmo > loadedAmmo)
+            {
+                Debug.Log("Reload 1 Is Executed");
+                hasAmmoInInventory = currentAmmo - loadedAmmo;
+                currentAmmo = loadedAmmo;
+            }
+            else 
+            {
+                Debug.Log("Reload 2 Is Executed");
+                currentAmmo += hasAmmoInInventory;
+                hasAmmoInInventory = 0;
+            }
 
-        currentAmmo = maxAmmo;
-
-        isReloading = false;
-        gunAnimator.SetBool("Reloading", false);
+            isReloading = false;
+            gunAnimator.SetBool("Reloading", false);
+            Debug.Log("Gun Reloaded");
+        }
 
     }
 }

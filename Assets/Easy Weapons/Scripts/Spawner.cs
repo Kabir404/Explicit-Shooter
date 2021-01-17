@@ -9,7 +9,8 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
-	public GameObject prefabToSpawn;				// The prefab that should be spawned
+	public GameObject prefabToSpawn;                // The prefab that should be spawned
+	public bool onlyMove = false;
 	public float spawnFrequency = 6.0f;				// The time (in seconds) between spawns
 	public bool spawnOnStart = false;				// Whether or not one instance of the prefab should be spawned on Start()
 	public bool move = true;						// Move this spawn spot around
@@ -49,7 +50,7 @@ public class Spawner : MonoBehaviour
 	void Spawn()
 	{
 		// First check to see if the prefab hasn't been set
-		if (prefabToSpawn != null)
+		if (prefabToSpawn != null && !onlyMove)
 		{
 			// Instantiate the prefab
 			Instantiate(prefabToSpawn, transform.position, Quaternion.identity);

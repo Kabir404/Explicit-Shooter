@@ -46,6 +46,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             //Fire if player is near
             if (agent.remainingDistance <= fireDistance && target != null && Time.time >= nextTimeToFire)
             {
+                //fires the projectiles
                 nextTimeToFire = Time.time + 1f / fireRate;
                 GameObject pro = Instantiate(projectile, firePoint.position, firePoint.rotation);
                 pro.gameObject.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * 100 * firePower);
