@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 1698720227}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -531,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 470365475}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -747,6 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 51421476}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -1106,7 +1109,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -2736,6 +2739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 168751613}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -4302,8 +4306,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasVersionText: 0
   versionText: {fileID: 0}
-  isPauseMenu: 0
   pauseMenuUI: {fileID: 0}
+  isPauseMenu: 0
 --- !u!1 &816128145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,8 +6223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasVersionText: 1
   versionText: {fileID: 774202780}
-  isPauseMenu: 1
   pauseMenuUI: {fileID: 1915254272}
+  isPauseMenu: 1
 --- !u!1 &1204302388
 GameObject:
   m_ObjectHideFlags: 0
@@ -6803,6 +6807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 2024987765}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -9999,6 +10004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 684877480}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -10353,6 +10359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1579674769}
   - component: {fileID: 1579674770}
+  - component: {fileID: 1579674771}
   m_Layer: 2
   m_Name: Collider
   m_TagString: Untagged
@@ -10387,6 +10394,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1579674771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579674768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57444c075000242ea99e263cee940de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manageVisibility: 1
 --- !u!1 &1594726225
 GameObject:
   m_ObjectHideFlags: 0
@@ -10710,6 +10730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 219561032}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -11461,6 +11482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4960f75fd5ef1464b822e326ff182211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToStop: 5
   firePoint: {fileID: 2145388006}
   projectile: {fileID: 6629495283164397314, guid: 29f4762f8a10cc74789f0179a2bd3a5c,
     type: 3}
@@ -13742,8 +13764,6 @@ MonoBehaviour:
   audioSource: {fileID: 1451891923}
   reloadSound: {fileID: 8300000, guid: 42c76564bea8b7544ab2c5a3f560b97e, type: 3}
   fireSound: {fileID: 8300000, guid: 8712960018b3fa4478f96eaaff2fa330, type: 3}
-  nextTimeToFire: 0
-  isReloading: 0
 --- !u!95 &4875013314318096184
 Animator:
   serializedVersion: 3
@@ -14149,8 +14169,6 @@ MonoBehaviour:
   audioSource: {fileID: 1978648711}
   reloadSound: {fileID: 8300000, guid: a236ed6ed1165ca44908f0cfe8c7ed65, type: 3}
   fireSound: {fileID: 8300000, guid: 2c71374916b02d241b02ea70809bca5a, type: 3}
-  nextTimeToFire: 0
-  isReloading: 0
 --- !u!95 &7403955713108796387
 Animator:
   serializedVersion: 3

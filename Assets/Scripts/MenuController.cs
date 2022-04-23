@@ -9,11 +9,12 @@ public class MenuController : MonoBehaviour
 {
     public bool hasVersionText = false;
     public TMP_Text versionText;
-    public bool isPauseMenu = true;
+    
     public GameObject pauseMenuUI;
     public static bool GameIsPaused = false;
-
-    private void Start()
+    public bool isPauseMenu = true;
+    
+    private void Awake()
     {
         if (hasVersionText) { versionText.text = Application.version.ToString(); }
         if (isPauseMenu && pauseMenuUI) 
@@ -21,6 +22,8 @@ public class MenuController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        //this.fixedDeltaTime = Time.fixedDeltaTime;
     }
     private void Update()
     {
@@ -37,6 +40,7 @@ public class MenuController : MonoBehaviour
             }
         }
 
+        //Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
     }
     public void StartGame()
     {
@@ -78,5 +82,9 @@ public class MenuController : MonoBehaviour
     public void LoadNextLevel() 
     {
         SceneManager.LoadScene(SceneManager.sceneCount + 1);
+    }
+    public void LoadPrevLevel() 
+    {
+        SceneManager.LoadScene(SceneManager.sceneCount - 1);
     }
 }

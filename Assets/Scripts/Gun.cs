@@ -42,11 +42,8 @@ public class Gun : MonoBehaviour
 
 
     //private variables
-    public float nextTimeToFire = 0f;
-
-
-
-    public bool isReloading = false;
+    private float nextTimeToFire = 0f;
+    private bool isReloading = false;
 
 
     private void Start()
@@ -99,30 +96,32 @@ public class Gun : MonoBehaviour
     //The firing logic
     private void Fire()
     {
+        //Instantiate Muzzle Flash
         Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
-
+        
+        //Play the firing sound
         audioSource.clip = fireSound;
         audioSource.Play();
 
-        RaycastHit hit;
+        RaycastHit hit; // Fire the raycast
 
-        currentAmmo--;
+        currentAmmo--; // Reduce the current ammo by 1
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
         {
-            if (hit.collider.GetComponent<Collider>().GetType() == typeof(SphereCollider)) { return; }
+            //if (hit.collider.GetComponent<Collider>().GetType() == typeof(SphereCollider)) { return; }
+            
+            //Get what has hitted the collider and do actions based on it
+            //If its a spehere collider then dont do anything.
+            //Or else damage the object which has health in it.
             if (hit.collider.GetComponent<Collider>().GetType() != typeof(SphereCollider))
             {
-                Debug.Log(hit.transform.name);
-                Health health = hit.transform.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.TakeDamage(damage);
-                }
-            } else
-            {
-                return;
-            }
+                Debug.Log(hit.transform.name);//Log what has hitted in the debug logs
+                
+                Health health = hit.transform.GetComponent<Health>(); // Get the health component from the shot raycast
+                if (health){ health.TakeDamage(damage);}
+            
+            } else { return; }
         }
 
         if (hit.rigidbody != null)
